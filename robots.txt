@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ovulation-calculator-nine.vercel.app/sitemap.xml
