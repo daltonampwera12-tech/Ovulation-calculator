@@ -1,276 +1,162 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ovulation & Cycle Tracker | Fertility & Period Calendar</title>
 
-  <title>Ovulation Calculator – Predict Your Fertile Days Accurately</title>
+  <!-- SEO -->
+  <meta name="description" content="Track your menstrual cycle, predict ovulation, and understand your fertile window with a soft, modern women’s health tracker." />
+  <meta name="keywords" content="ovulation calculator, fertility tracker, period calendar, menstrual cycle, women health" />
 
-  <meta name="description" content="Use our free ovulation calculator to predict your fertile window, track your cycle, and improve your chances of getting pregnant. Fast, accurate, and easy to use." />
-
-  <meta name="keywords" content="ovulation calculator, fertile days calculator, ovulation tracker, pregnancy planning, fertility calculator, menstrual cycle calculator" />
-
-  <!-- Open Graph (Facebook, WhatsApp, etc.) -->
-  <meta property="og:title" content="Ovulation Calculator – Predict Your Fertile Days Accurately" />
-  <meta property="og:description" content="Use our free ovulation calculator to predict your fertile window and improve your chances of pregnancy." />
-  <meta property="og:url" content="https://ovulation-calculator-nine.vercel.app" />
-  <meta property="og:type" content="website" />
+  <!-- Open Graph (Facebook, WhatsApp, Messenger, LinkedIn) -->
+  <meta property="og:title" content="Ovulation & Cycle Tracker">
+  <meta property="og:description" content="Track your menstrual cycle, predict ovulation, and understand your fertile window with a soft, modern women’s health tracker.">
+  <meta property="og:image" content="https://yourdomain.com/icon-512.png">
+  <meta property="og:url" content="https://yourdomain.com">
+  <meta property="og:type" content="website">
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ovulation Calculator – Predict Your Fertile Days Accurately" />
-  <meta name="twitter:description" content="Use our free ovulation calculator to predict your fertile window and improve your chances of pregnancy." />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ovulation & Cycle Tracker">
+  <meta name="twitter:description" content="Track your menstrual cycle, predict ovulation, and understand your fertile window with a soft, modern women’s health tracker.">
+  <meta name="twitter:image" content="https://yourdomain.com/icon-512.png">
 
-  <!-- Favicon (we will add the actual file in the next step) -->
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Ovulation & Cycle Tracker",
+    "description": "A soft, modern tool to track your menstrual cycle, predict ovulation, and understand your fertile window.",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "url": "https://yourdomain.com",
+    "creator": {
+      "@type": "Organization",
+      "name": "Ovulation & Cycle Tracker"
+    }
+  }
+  </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5575926039966818"
-    crossorigin="anonymous"></script>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#ffe3f1" />
 
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- GOOGLE ADSENSE -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5575926039966818"
+     crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-  <!-- STICKY HEADER -->
-  <header class="sticky-header">
-    <h1>Ovulation Calculator</h1>
-    <button id="themeToggle" class="theme-toggle">🌙</button>
-  </header>
-
-  <div class="app">
-
-    <!-- HERO -->
-    <section class="hero">
-      <header class="hero">
-  <h1 class="hero-title">Ovulation & Fertility Calculator</h1>
-  <p class="hero-subtitle">Track your cycle, predict ovulation, and understand your fertile window with confidence.</p>
-</header>
-
-      <div class="ad-slot ad-top">
-        <div class="ad-placeholder">Ad space (top banner)</div>
-      </div>
-    </section>
-
-    <!-- CALCULATOR -->
-    <section class="card" id="calculator-section">
-      <h2>Ovulation Calculator</h2>
-      <p class="section-intro">Enter your last period date and cycle length.</p>
-
-      <form id="ovulationForm" class="form">
-        <div class="form-group">
-          <label for="lastPeriod">First day of last period</label>
-          <input type="date" id="lastPeriod" required />
-        </div>
-
-        <div class="form-group">
-          <label for="cycleLength">Cycle length</label>
-          <select id="cycleLength" required>
-            <option value="">Select cycle length</option>
-            <option value="21">21 days</option>
-            <option value="22">22 days</option>
-            <option value="23">23 days</option>
-            <option value="24">24 days</option>
-            <option value="25">25 days</option>
-            <option value="26">26 days</option>
-            <option value="27">27 days</option>
-            <option value="28">28 days</option>
-            <option value="29">29 days</option>
-            <option value="30">30 days</option>
-            <option value="31">31 days</option>
-            <option value="32">32 days</option>
-            <option value="33">33 days</option>
-            <option value="34">34 days</option>
-            <option value="35">35 days</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn-primary">Calculate</button>
-      </form>
-
-      <div id="loadingSkeleton" class="loading hidden">
-        <div class="loading-bar"></div>
-      </div>
-
-      <!-- RESULTS -->
-      <div id="results" class="results hidden">
-        <h3>Your Results</h3>
-
-        <div class="results-grid">
-          <div class="result-item">
-            <span class="result-label">Ovulation Day</span>
-            <span id="ovulationDate" class="result-value">—</span>
-          </div>
-
-          <div class="result-item">
-            <span class="result-label">Fertile Window</span>
-            <span id="fertileWindow" class="result-value">—</span>
-          </div>
-
-          <div class="result-item">
-            <span class="result-label">Next Period</span>
-            <span id="nextPeriod" class="result-value">—</span>
-          </div>
-        </div>
-
-        <p id="cycleSummary" class="result-summary"></p>
-
-        <!-- NEW LOW FERTILITY LINE -->
-        <p id="lowFertility" class="result-summary"></p>
-
-        <p class="result-summary">
-          Low fertility days typically have a lower chance of conception, but no method can guarantee pregnancy prevention.
-        </p>
-      </div>
-    </section>
-
-    <section class="ad-slot ad-inline">
-      <div class="ad-placeholder">Ad space (inline)</div>
-    </section>
-
-    <!-- CALENDAR -->
-    <section class="card" id="calendar-section">
-      <h2>Fertility Calendar</h2>
-      <p class="section-intro">Visualize your cycle.</p>
-
-      <div class="calendar-legend">
-        <span><span class="legend-dot period"></span>Period</span>
-        <span><span class="legend-dot fertile"></span>Fertile</span>
-        <span><span class="legend-dot ovulation"></span>Ovulation</span>
-        <span><span class="legend-dot lowfertile"></span>Low fertility</span>
-      </div>
-
-      <div id="calendarGrid" class="calendar-grid">
-        <p class="calendar-placeholder">Calculate to view calendar.</p>
-      </div>
-    </section>
-
-    <!-- PROBABILITY -->
-    <section class="card">
-      <h2>Pregnancy Probability</h2>
-
-      <ul class="probability-list">
-        <li><span>2 days before ovulation</span><span class="prob-badge high">High</span></li>
-        <li><span>1 day before ovulation</span><span class="prob-badge very-high">Very High</span></li>
-        <li><span>Ovulation day</span><span class="prob-badge peak">Peak</span></li>
-        <li><span>1 day after ovulation</span><span class="prob-badge high">High</span></li>
-        <li><span>2+ days after ovulation</span><span class="prob-badge low">Low</span></li>
-      </ul>
-    </section>
-
-    <!-- HISTORY -->
-    <section class="card" id="history-section">
-      <h2>Cycle History</h2>
-      <p class="section-intro">Stored on your device only.</p>
-
-      <table class="history-table">
-        <thead>
-          <tr>
-            <th>Last Period</th>
-            <th>Cycle</th>
-            <th>Ovulation</th>
-            <th>Fertile Window</th>
-          </tr>
-        </thead>
-        <tbody id="historyBody">
-          <tr><td colspan="4" class="empty">No history yet.</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- SYMPTOMS -->
-    <section class="card">
-      <h2>Signs of Ovulation</h2>
-
-      <ul class="info-list">
-        <li><h3>Cervical mucus changes</h3><p>Clear, stretchy, egg‑white texture.</p></li>
-        <li><h3>Mild cramps</h3><p>Light pain on one side.</p></li>
-        <li><h3>Temperature rise</h3><p>Basal temperature increases slightly.</p></li>
-        <li><h3>Breast tenderness</h3><p>Hormonal sensitivity.</p></li>
-        <li><h3>Increased libido</h3><p>Natural fertility signal.</p></li>
-      </ul>
-    </section>
-
-    <!-- FAQ -->
-    <section class="card" id="faq-section">
-      <h2>FAQ</h2>
-
-      <div class="faq-item">
-        <button class="faq-question">How accurate is this calculator?</button>
-        <div class="faq-answer"><p>It provides estimates based on average cycles.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">Can I get pregnant outside fertile days?</button>
-        <div class="faq-answer"><p>Yes, but chances are lower.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">What if my cycle is irregular?</button>
-        <div class="faq-answer"><p>Predictions may be less accurate.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">Does this replace medical advice?</button>
-        <div class="faq-answer"><p>No — consult a healthcare provider.</p></div>
-      </div>
-    </section>
-
-    <section class="ad-slot ad-inline">
-      <div class="ad-placeholder">Ad space (content)</div>
-    </section>
-
-    <!-- EDUCATIONAL ARTICLES -->
-    <section class="card">
-      <h2>Learn More</h2>
-
-      <article class="edu-article">
-        <h3>What is ovulation?</h3>
-        <p>Ovulation is when an ovary releases an egg.</p>
-      </article>
-
-      <article class="edu-article">
-        <h3>How your cycle works</h3>
-        <p>Each cycle has four phases: menstrual, follicular, ovulation, luteal.</p>
-      </article>
-
-      <article class="edu-article">
-        <h3>What affects ovulation timing?</h3>
-        <p>Stress, illness, weight changes, and more.</p>
-      </article>
-
-      <article class="edu-article">
-        <h3>How to support fertility</h3>
-        <p>Healthy habits improve reproductive health.</p>
-      </article>
-    </section>
-
-    <!-- SHARE -->
-    <section class="card">
-      <h2>Share This Tool</h2>
-      <button id="shareButton" class="btn-secondary">Share</button>
-      <p id="shareStatus" class="share-status"></p>
-    </section>
-
-    <button id="backToTop" class="back-to-top">↑</button>
-
+  <!-- LANGUAGE + THEME -->
+  <div class="language-select">
+    <select id="languagePicker">
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="sw">Swahili</option>
+      <option value="lg">Luganda</option>
+    </select>
+    <button id="themeToggle" class="theme-toggle">☾</button>
   </div>
 
+  <!-- HERO -->
+  <header class="hero">
+    <h1 class="hero-title" data-i18n="title">Ovulation & Fertility Tracker</h1>
+    <p class="hero-subtitle" data-i18n="subtitle">
+      Track your cycle, predict ovulation, and understand your fertile window with confidence.
+    </p>
+  </header>
+
+  <!-- INSTALL BUTTON -->
+  <div class="install-section">
+    <button id="installBtn" class="secondary-btn">Install App</button>
+  </div>
+
+  <!-- SEO EDUCATIONAL SECTION -->
+  <section class="seo-section">
+    <h2 class="section-title">Understanding Your Cycle</h2>
+
+    <h3>✨ What is ovulation?</h3>
+    <p>
+      Ovulation is when your ovary releases an egg. It usually happens once per cycle and marks your most fertile time.
+    </p>
+
+    <h3>✨ What is the fertile window?</h3>
+    <p>
+      Your fertile window includes the five days before ovulation and the day after. These are the days when pregnancy is most likely.
+    </p>
+
+    <h3>✨ Why track your cycle?</h3>
+    <p>
+      Tracking helps you understand your body, predict your period, and identify your most fertile days with confidence.
+    </p>
+  </section>
+
+  <!-- FORM -->
+  <section class="form-section">
+    <h2 class="section-title" data-i18n="cycleInfo">Your Cycle Information</h2>
+
+    <label data-i18n="lastPeriod">First day of your last period:</label>
+    <input type="date" id="lastPeriodDate" />
+
+    <label data-i18n="cycleLength">Average cycle length (days):</label>
+    <input type="number" id="cycleLength" min="20" max="40" />
+
+    <label data-i18n="periodLength">Average period length (days):</label>
+    <input type="number" id="periodLength" min="2" max="10" />
+
+    <button id="calculateBtn" data-i18n="calculate">Calculate</button>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="results-section">
+    <h2 class="section-title" data-i18n="results">Your Results</h2>
+
+    <p><strong data-i18n="ovulationDay">Ovulation Day:</strong> <span id="ovulationResult"></span></p>
+    <p><strong data-i18n="fertileWindow">Fertile Window:</strong> <span id="fertileWindowResult"></span></p>
+    <p><strong data-i18n="nextPeriod">Next Period:</strong> <span id="nextPeriodResult"></span></p>
+
+    <button id="shareBtn" class="secondary-btn" data-i18n="share">Share this tracker</button>
+  </section>
+
+  <!-- CALENDAR -->
+  <section class="calendar-section">
+    <h2 class="section-title" data-i18n="calendarTitle">Your Cycle Calendar</h2>
+
+    <div id="calendar"></div>
+
+    <div class="legend">
+      <div><span class="legend-box period"></span> <span data-i18n="legendPeriod">Period</span></div>
+      <div><span class="legend-box follicular"></span> <span data-i18n="legendFollicular">Follicular Phase</span></div>
+      <div><span class="legend-box fertile"></span> <span data-i18n="legendFertile">Fertile Window</span></div>
+      <div><span class="legend-box ovulation"></span> <span data-i18n="legendOvulation">Ovulation</span></div>
+      <div><span class="legend-box luteal"></span> <span data-i18n="legendLuteal">Luteal Phase</span></div>
+    </div>
+  </section>
+
+  <!-- SYMPTOMS -->
+  <section class="symptoms-section">
+    <h2 class="section-title" data-i18n="symptomsTitle">Daily Symptoms & Notes</h2>
+    <p data-i18n="symptomsHint">Write how you feel today to better understand your cycle patterns.</p>
+    <textarea id="symptomsNotes" rows="4" placeholder="Cramps, mood, energy, discharge, etc."></textarea>
+    <button id="saveSymptoms" class="secondary-btn" data-i18n="saveSymptoms">Save today’s note</button>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="footer">
-    <div class="ad-slot ad-footer">
-      <div class="ad-placeholder">Ad space (footer)</div>
-    </div>
-
-    <div class="footer-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms</a>
-      <a href="contact.html">Contact</a>
-    </div>
-
-    <p class="footer-note">For informational purposes only. Not medical advice.</p>
+    <p data-i18n="footerText">Designed with care to help you understand your cycle.</p>
+    <p>
+      <a href="privacy.html" data-i18n="privacyLink">Privacy Policy</a> ·
+      <a href="terms.html" data-i18n="termsLink">Terms of Use</a>
+    </p>
   </footer>
 
   <script src="script.js"></script>
-
 </body>
-</html>
+  </html>
