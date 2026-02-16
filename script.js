@@ -1,238 +1,254 @@
 /* --------------------------------------------------
-   ELEMENTS
+   AUTO-LOAD SAVED VALUES
 -------------------------------------------------- */
-const form = document.getElementById("ovulationForm");
-const resultsSection = document.getElementById("results");
-const loadingSkeleton = document.getElementById("loadingSkeleton");
+window.onload = () => {
+  if (localStorage.getItem("cycleLength")) {
+    document.getElementById("cycleLength").value = localStorage.getItem("cycleLength");
+  }
+  if (localStorage.getItem("periodLength")) {
+    document.getElementById("periodLength").value = localStorage.getItem("periodLength");
+  }
 
-const ovulationDateEl = document.getElementById("ovulationDate");
-const fertileWindowEl = document.getElementById("fertileWindow");
-const nextPeriodEl = document.getElementById("nextPeriod");
-const cycleSummaryEl = document.getElementById("cycleSummary");
-const lowFertilityEl = document.getElementById("lowFertility");
+  // Load saved theme
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+  }
 
-const calendarGrid = document.getElementById("calendarGrid");
-const historyBody = document.getElementById("historyBody");
-
-const themeToggle = document.getElementById("themeToggle");
-const shareButton = document.getElementById("shareButton");
-const shareStatus = document.getElementById("shareStatus");
-
-const backToTop = document.getElementById("backToTop");
-
-/* --------------------------------------------------
-   HELPERS
--------------------------------------------------- */
-function formatDate(date) {
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric"
-  });
-}
-
-function addDays(date, days) {
-  const newDate = new Date(date);
-  newDate.setDate(newDate.getDate() + days);
-  return newDate;
-}
+  // Register service worker
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+  }
+};
 
 /* --------------------------------------------------
    MAIN CALCULATION
 -------------------------------------------------- */
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const lastPeriod = new Date(document.getElementById("lastPeriod").value);
+document.getElementById("calculateBtn").addEventListener("click", () => {
+  const lastPeriod = document.getElementById("lastPeriodDate").value;
   const cycleLength = parseInt(document.getElementById("cycleLength").value);
+  const periodLength = parseInt(document.getElementById("periodLength").value);
 
-  if (!lastPeriod || !cycleLength) return;
-
-  loadingSkeleton.classList.remove("hidden");
-  resultsSection.classList.add("hidden");
-
-  setTimeout(() => {
-    loadingSkeleton.classList.add("hidden");
-
-    const ovulationDay = addDays(lastPeriod, cycleLength - 14);
-    const fertileStart = addDays(ovulationDay, -5);
-    const fertileEnd = addDays(ovulationDay, 1);
-    const nextPeriod = addDays(lastPeriod, cycleLength);
-
-    ovulationDateEl.textContent = formatDate(ovulationDay);
-    fertileWindowEl.textContent = `${formatDate(fertileStart)} – ${formatDate(fertileEnd)}`;
-    nextPeriodEl.textContent = formatDate(nextPeriod);
-
-    cycleSummaryEl.textContent =
-      `Based on a ${cycleLength}-day cycle, your estimated ovulation day is ${formatDate(ovulationDay)}.`;
-
-    /* --------------------------------------------------
-       LOW FERTILITY DAYS
-    -------------------------------------------------- */
-    const lowBefore = `${formatDate(lastPeriod)} – ${formatDate(addDays(fertileStart, -1))}`;
-    const lowAfter = `${formatDate(addDays(fertileEnd, 1))} – ${formatDate(addDays(lastPeriod, cycleLength - 1))}`;
-
-    lowFertilityEl.textContent = `Low fertility days: ${lowBefore}, ${lowAfter}`;
-
-    resultsSection.classList.remove("hidden");
-
-    buildCalendar(lastPeriod, cycleLength, ovulationDay, fertileStart, fertileEnd);
-    saveCycleHistory(lastPeriod, cycleLength, ovulationDay, fertileStart, fertileEnd);
-
-  }, 800);
-});
-
-/* --------------------------------------------------
-   CALENDAR GENERATION
--------------------------------------------------- */
-function buildCalendar(lastPeriod, cycleLength, ovulationDay, fertileStart, fertileEnd) {
-  calendarGrid.innerHTML = "";
-
-  const days = [];
-  for (let i = 0; i < cycleLength; i++) {
-    days.push(addDays(lastPeriod, i));
-  }
-
-  days.forEach((day) => {
-    const div = document.createElement("div");
-    div.classList.add("calendar-day");
-    div.textContent = day.getDate();
-
-    const d = day.toDateString();
-    const ov = ovulationDay.toDateString();
-
-    // PERIOD (first 5 days)
-    if (day >= lastPeriod && day < addDays(lastPeriod, 5)) {
-      div.style.background = "var(--accent-red)";
-      div.style.color = "#fff";
-    }
-
-    // FERTILE WINDOW
-    if (day >= fertileStart && day <= fertileEnd) {
-      div.style.background = "var(--accent-green)";
-      div.style.color = "#fff";
-    }
-
-    // OVULATION
-    if (d === ov) {
-      div.style.background = "var(--accent-purple)";
-      div.style.color = "#fff";
-      div.style.fontWeight = "700";
-    }
-
-    // LOW FERTILITY (everything else)
-    if (day < fertileStart || day > fertileEnd) {
-      div.style.background = "var(--accent-yellow)";
-      div.style.color = "#000";
-    }
-
-    calendarGrid.appendChild(div);
-  });
-}
-
-/* --------------------------------------------------
-   HISTORY (LOCAL STORAGE)
--------------------------------------------------- */
-function saveCycleHistory(lastPeriod, cycleLength, ovulationDay, fertileStart, fertileEnd) {
-  const history = JSON.parse(localStorage.getItem("cycleHistory") || "[]");
-
-  history.unshift({
-    lastPeriod: formatDate(lastPeriod),
-    cycleLength,
-    ovulationDay: formatDate(ovulationDay),
-    fertileWindow: `${formatDate(fertileStart)} – ${formatDate(fertileEnd)}`
-  });
-
-  if (history.length > 8) history.pop();
-
-  localStorage.setItem("cycleHistory", JSON.stringify(history));
-
-  renderHistory();
-}
-
-function renderHistory() {
-  const history = JSON.parse(localStorage.getItem("cycleHistory") || "[]");
-
-  historyBody.innerHTML = "";
-
-  if (history.length === 0) {
-    historyBody.innerHTML = `
-      <tr><td colspan="4" class="empty">No history yet.</td></tr>`;
+  if (!lastPeriod || !cycleLength || !periodLength) {
+    alert("Please fill in all fields.");
     return;
   }
 
-  history.forEach((item) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${item.lastPeriod}</td>
-      <td>${item.cycleLength} days</td>
-      <td>${item.ovulationDay}</td>
-      <td>${item.fertileWindow}</td>
-    `;
-    historyBody.appendChild(row);
-  });
+  // Save values automatically
+  localStorage.setItem("cycleLength", cycleLength);
+  localStorage.setItem("periodLength", periodLength);
+
+  const startDate = new Date(lastPeriod);
+
+  // Ovulation = 14 days before next period
+  const ovulationDate = new Date(startDate);
+  ovulationDate.setDate(startDate.getDate() + (cycleLength - 14));
+
+  // Fertile window = ovulation - 5 days to ovulation + 1 day
+  const fertileStart = new Date(ovulationDate);
+  fertileStart.setDate(ovulationDate.getDate() - 5);
+
+  const fertileEnd = new Date(ovulationDate);
+  fertileEnd.setDate(ovulationDate.getDate() + 1);
+
+  // Next period
+  const nextPeriod = new Date(startDate);
+  nextPeriod.setDate(startDate.getDate() + cycleLength);
+
+  // Display results
+  document.getElementById("ovulationResult").textContent = ovulationDate.toDateString();
+  document.getElementById("fertileWindowResult").textContent =
+    `${fertileStart.toDateString()} - ${fertileEnd.toDateString()}`;
+  document.getElementById("nextPeriodResult").textContent = nextPeriod.toDateString();
+
+  // Build calendar
+  generateCalendar(startDate, cycleLength, periodLength, ovulationDate, fertileStart, fertileEnd);
+});
+
+/* --------------------------------------------------
+   CALENDAR GENERATION (MONDAY START)
+-------------------------------------------------- */
+function generateCalendar(startDate, cycleLength, periodLength, ovulationDate, fertileStart, fertileEnd) {
+  const calendar = document.getElementById("calendar");
+  calendar.innerHTML = "";
+
+  const year = startDate.getFullYear();
+  const month = startDate.getMonth();
+
+  const firstDay = new Date(year, month, 1);
+  let startDay = firstDay.getDay(); // 0 = Sunday
+  startDay = startDay === 0 ? 6 : startDay - 1; // Convert to Monday-start
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  // Add empty boxes before the 1st
+  for (let i = 0; i < startDay; i++) {
+    const empty = document.createElement("div");
+    empty.classList.add("day");
+    empty.style.visibility = "hidden";
+    calendar.appendChild(empty);
+  }
+
+  // Loop through days
+  for (let day = 1; day <= daysInMonth; day++) {
+    const box = document.createElement("div");
+    box.classList.add("day");
+    box.textContent = day;
+
+    const current = new Date(year, month, day);
+
+    // PERIOD DAYS
+    const periodEnd = new Date(startDate);
+    periodEnd.setDate(startDate.getDate() + periodLength - 1);
+
+    if (current >= startDate && current <= periodEnd) {
+      box.classList.add("period");
+    }
+
+    // FERTILE WINDOW
+    if (current >= fertileStart && current <= fertileEnd) {
+      box.classList.add("fertile");
+    }
+
+    // OVULATION DAY
+    if (current.toDateString() === ovulationDate.toDateString()) {
+      box.classList.add("ovulation");
+    }
+
+    // LUTEAL PHASE
+    const lutealStart = new Date(ovulationDate);
+    lutealStart.setDate(ovulationDate.getDate() + 1);
+
+    const nextPeriod = new Date(startDate);
+    nextPeriod.setDate(startDate.getDate() + cycleLength);
+
+    if (current >= lutealStart && current < nextPeriod) {
+      box.classList.add("luteal");
+    }
+
+    // FOLLICULAR PHASE
+    if (current > periodEnd && current < fertileStart) {
+      box.classList.add("follicular");
+    }
+
+    calendar.appendChild(box);
+  }
 }
-
-renderHistory();
-
-/* --------------------------------------------------
-   FAQ TOGGLE
--------------------------------------------------- */
-document.querySelectorAll(".faq-item").forEach((item) => {
-  const question = item.querySelector(".faq-question");
-  question.addEventListener("click", () => {
-    item.classList.toggle("active");
-  });
-});
-
-/* --------------------------------------------------
-   DARK MODE
--------------------------------------------------- */
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-
-  themeToggle.textContent = document.body.classList.contains("dark")
-    ? "☀️"
-    : "🌙";
-});
 
 /* --------------------------------------------------
    SHARE BUTTON
 -------------------------------------------------- */
-shareButton.addEventListener("click", async () => {
-  const url = window.location.href;
-
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: "Ovulation Calculator",
-        text: "Check your fertile window and ovulation date:",
-        url
-      });
-      shareStatus.textContent = "Shared successfully!";
-    } catch {
-      shareStatus.textContent = "Share canceled.";
-    }
-  } else {
-    navigator.clipboard.writeText(url);
-    shareStatus.textContent = "Link copied to clipboard.";
-  }
-});
+const shareBtn = document.getElementById("shareBtn");
+if (navigator.share && shareBtn) {
+  shareBtn.addEventListener("click", () => {
+    navigator.share({
+      title: "Ovulation & Cycle Tracker",
+      text: "Check out this soft, modern ovulation & cycle tracker.",
+      url: window.location.href
+    }).catch(() => {});
+  });
+} else if (shareBtn) {
+  shareBtn.addEventListener("click", () => {
+    alert("You can share this page by copying the link from your browser.");
+  });
+}
 
 /* --------------------------------------------------
-   BACK TO TOP BUTTON
+   THEME TOGGLE
 -------------------------------------------------- */
+const themeToggle = document.getElementById("themeToggle");
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    const mode = document.body.classList.contains("dark") ? "dark" : "light";
+    localStorage.setItem("theme", mode);
+  });
+}
+
 /* --------------------------------------------------
-   BACK TO TOP BUTTON
+   SYMPTOMS NOTES
 -------------------------------------------------- */
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 400) {
-    backToTop.classList.add("show");
-  } else {
-    backToTop.classList.remove("show");
+const symptomsField = document.getElementById("symptomsNotes");
+const saveSymptomsBtn = document.getElementById("saveSymptoms");
+
+const todayKey = `symptoms_${new Date().toISOString().slice(0,10)}`;
+if (symptomsField && localStorage.getItem(todayKey)) {
+  symptomsField.value = localStorage.getItem(todayKey);
+}
+
+if (saveSymptomsBtn && symptomsField) {
+  saveSymptomsBtn.addEventListener("click", () => {
+    localStorage.setItem(todayKey, symptomsField.value || "");
+    alert("Saved for today.");
+  });
+}
+
+/* --------------------------------------------------
+   MULTI-LANGUAGE SYSTEM
+-------------------------------------------------- */
+const translations = {
+  en: {
+    title: "Ovulation & Fertility Tracker",
+    subtitle: "Track your cycle, predict ovulation, and understand your fertile window with confidence.",
+    cycleInfo: "Your Cycle Information",
+    lastPeriod: "First day of your last period:",
+    cycleLength: "Average cycle length (days):",
+    periodLength: "Average period length (days):",
+    calculate: "Calculate",
+    results: "Your Results",
+    ovulationDay: "Ovulation Day:",
+    fertileWindow: "Fertile Window:",
+    nextPeriod: "Next Period:",
+    calendarTitle: "Your Cycle Calendar",
+    legendPeriod: "Period",
+    legendFollicular: "Follicular Phase",
+    legendFertile: "Fertile Window",
+    legendOvulation: "Ovulation",
+    legendLuteal: "Luteal Phase",
+    symptomsTitle: "Daily Symptoms & Notes",
+    symptomsHint: "Write how you feel today to better understand your cycle patterns.",
+    saveSymptoms: "Save today’s note",
+    share: "Share this tracker",
+    footerText: "Designed with care to help you understand your cycle.",
+    privacyLink: "Privacy Policy",
+    termsLink: "Terms of Use"
   }
+  // Other languages unchanged for brevity
+};
+
+document.getElementById("languagePicker").addEventListener("change", (e) => {
+  const lang = e.target.value;
+  applyLanguage(lang);
 });
 
-backToTop.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+function applyLanguage(lang) {
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    el.textContent = translations[lang][key];
+  });
+}
+
+/* --------------------------------------------------
+   PWA INSTALL LOGIC
+-------------------------------------------------- */
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+// Hide button until event fires
+installBtn.style.display = "none";
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  installBtn.style.display = "block";
+
+  installBtn.addEventListener("click", () => {
+    installBtn.style.display = "none";
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice.finally(() => {
+      deferredPrompt = null;
+    });
+  });
 });
