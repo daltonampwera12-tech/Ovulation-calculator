@@ -260,3 +260,23 @@ body.dark .period-day {
 body.dark .footer a {
   color: #ffbcd4;
 }
+.calendar-legend {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.legend-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legend-box.period { background: #ff6b6b; }
+.legend-box.fertile { background: #ffe066; }
+.legend-box.ovulation { background: #9b5de5; }
+.legend-box.normal { background: #ffeef6; }
