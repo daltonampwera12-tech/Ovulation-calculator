@@ -1,0 +1,459 @@
+/* --------------------------------------------------
+   ROOT VARIABLES (LIGHT + DARK MODE)
+-------------------------------------------------- */
+:root {
+  --bg: #f5f6fa;
+  --text: #1a1a1d;
+  --card-bg: #ffffff;
+  --card-border: #e4e4e7;
+  --primary: #6a4df5;
+  --primary-hover: #5a3ee0;
+  --muted: #6b6b6b;
+  --shadow: rgba(0,0,0,0.06);
+
+  --accent-red: #e53935;
+  --accent-green: #4caf50;
+  --accent-purple: #9c27b0;
+  --accent-gray: #bdbdbd;
+  --accent-yellow: #FFF59D; /* LOW FERTILITY */
+}
+
+.dark {
+  --bg: #0f0f12;
+  --text: #f1f1f1;
+  --card-bg: #1a1a1f;
+  --card-border: #2a2a33;
+  --primary: #8f7bff;
+  --primary-hover: #7b68e8;
+  --muted: #b5b5b5;
+  --shadow: rgba(0,0,0,0.3);
+}
+
+/* --------------------------------------------------
+   GLOBAL RESET
+-------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  padding-bottom: 80px;
+}
+
+.app {
+  max-width: 900px;
+  margin: auto;
+  padding: 16px;
+}
+
+/* --------------------------------------------------
+   STICKY HEADER
+-------------------------------------------------- */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--card-border);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sticky-header h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.theme-toggle {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+/* --------------------------------------------------
+   HERO SECTION
+-------------------------------------------------- */
+.hero {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.hero h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.hero p {
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* --------------------------------------------------
+   AD SLOTS
+-------------------------------------------------- */
+.ad-slot {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.ad-placeholder {
+  width: 100%;
+  height: 90px;
+  background: var(--card-bg);
+  border: 1px dashed var(--card-border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* --------------------------------------------------
+   CARDS
+-------------------------------------------------- */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 10px var(--shadow);
+}
+
+.card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.section-intro {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* --------------------------------------------------
+   FORM
+-------------------------------------------------- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+
+input[type="date"],
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* --------------------------------------------------
+   LOADING SKELETON
+-------------------------------------------------- */
+.loading {
+  margin-top: 16px;
+}
+
+.loading-bar {
+  width: 100%;
+  height: 10px;
+  background: var(--card-border);
+  border-radius: 10px;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { opacity: .4; }
+  50% { opacity: 1; }
+  100% { opacity: .4; }
+}
+
+.hidden {
+  display: none;
+}
+
+/* --------------------------------------------------
+   RESULTS
+-------------------------------------------------- */
+.results {
+  margin-top: 20px;
+}
+
+.results-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.result-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.result-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.result-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.result-summary {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------
+   CALENDAR
+-------------------------------------------------- */
+.calendar-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.period { background: var(--accent-red); }
+.fertile { background: var(--accent-green); }
+.ovulation { background: var(--accent-purple); }
+.lowfertile { background: var(--accent-yellow); }
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.calendar-day {
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  font-size: 0.9rem;
+  transition: transform .15s;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+.calendar-placeholder {
+  text-align: center;
+  color: var(--muted);
+  grid-column: span 7;
+}
+
+/* --------------------------------------------------
+   PROBABILITY LIST
+-------------------------------------------------- */
+.probability-list {
+  list-style: none;
+  margin-top: 16px;
+}
+
+.probability-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.prob-badge {
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #fff;
+}
+
+.high { background: var(--accent-green); }
+.very-high { background: #ff9800; }
+.peak { background: var(--accent-purple); }
+.low { background: var(--accent-gray); }
+
+/* --------------------------------------------------
+   HISTORY TABLE
+-------------------------------------------------- */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.history-table th,
+.history-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------
+   FAQ
+-------------------------------------------------- */
+.faq-item {
+  border-bottom: 1px solid var(--card-border);
+  padding: 12px 0;
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 0;
+  color: var(--text);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease;
+  color: var(--muted);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px;
+  margin-top: 6px;
+}
+
+/* --------------------------------------------------
+   EDUCATIONAL ARTICLES
+-------------------------------------------------- */
+.edu-article {
+  margin-bottom: 16px;
+}
+
+.edu-article h3 {
+  margin-bottom: 6px;
+}
+
+/* --------------------------------------------------
+   SHARE STATUS
+-------------------------------------------------- */
+.share-status {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------
+   BACK TO TOP BUTTON
+-------------------------------------------------- */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 12px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: none;
+  box-shadow: 0 4px 10px var(--shadow);
+}
+
+.back-to-top.show {
+  display: block;
+}
+
+/* --------------------------------------------------
+   FOOTER
+-------------------------------------------------- */
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.footer-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
