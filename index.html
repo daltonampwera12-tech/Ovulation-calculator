@@ -6,12 +6,12 @@
   <title>Ovulation & Cycle Tracker | Fertility & Period Calendar</title>
 
   <!-- SEO -->
-  <meta name="description" content="Track your menstrual cycle, predict ovulation, and understand your fertile window with a soft, modern women’s health tracker." />
+  <meta name="description" content="Track your menstrual cycle, predict ovulation, and understand your fertile window with confidence." />
   <meta name="keywords" content="ovulation calculator, fertility tracker, period calendar, menstrual cycle, women health" />
 
-  <!-- Open Graph (Facebook, WhatsApp, Messenger, LinkedIn) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Ovulation & Cycle Tracker">
-  <meta property="og:description" content="Track your menstrual cycle, predict ovulation, and understand your fertile window with a soft, modern women’s health tracker.">
+  <meta property="og:description" content="Track your menstrual cycle, predict ovulation, and understand your fertile window with confidence.">
   <meta property="og:image" content="https://yourdomain.com/icon-512.png">
   <meta property="og:url" content="https://yourdomain.com">
   <meta property="og:type" content="website">
@@ -19,7 +19,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ovulation & Cycle Tracker">
-  <meta name="twitter:description" content="Track your menstrual cycle, predict ovulation, and understand your fertile window with a soft, modern women’s health tracker.">
+  <meta name="twitter:description" content="Track your menstrual cycle, predict ovulation, and understand your fertile window with confidence.">
   <meta name="twitter:image" content="https://yourdomain.com/icon-512.png">
 
   <!-- Structured Data -->
@@ -28,7 +28,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Ovulation & Cycle Tracker",
-    "description": "A soft, modern tool to track your menstrual cycle, predict ovulation, and understand your fertile window.",
+    "description": "A soft, modern tool to track your menstrual cycle, predict ovulation, and understand your fertile window with confidence.",
     "applicationCategory": "HealthApplication",
     "operatingSystem": "Web",
     "url": "https://yourdomain.com",
@@ -47,121 +47,292 @@
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <!-- GOOGLE ADSENSE -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5575926039966818"
-     crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5575926039966818" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-  <!-- LANGUAGE + THEME -->
-  <div class="language-select">
-    <select id="languagePicker">
+  <!-- LANGUAGE SELECTOR -->
+  <div style="text-align:right; padding:15px;">
+    <select id="languageSelect" onchange="setLanguage(this.value)" style="padding:8px; border-radius:8px;">
       <option value="en">English</option>
       <option value="fr">Français</option>
       <option value="es">Español</option>
-      <option value="sw">Swahili</option>
-      <option value="lg">Luganda</option>
+      <option value="sw">Kiswahili</option>
+      <option value="de">Deutsch</option>
+      <option value="pt">Português</option>
     </select>
-    <button id="themeToggle" class="theme-toggle">☾</button>
   </div>
 
-  <!-- HERO -->
+  <!-- HERO SECTION -->
   <header class="hero">
-    <h1 class="hero-title" data-i18n="title">Ovulation & Fertility Tracker</h1>
-    <p class="hero-subtitle" data-i18n="subtitle">
+    <h1 class="hero-title" data-translate="heroTitle">Ovulation & Fertility Tracker</h1>
+    <p class="hero-subtitle" data-translate="heroSubtitle">
       Track your cycle, predict ovulation, and understand your fertile window with confidence.
     </p>
   </header>
 
-  <!-- INSTALL BUTTON -->
-  <div class="install-section">
-    <button id="installBtn" class="secondary-btn">Install App</button>
-  </div>
+  <!-- UNDERSTANDING YOUR CYCLE -->
+  <section class="form-section">
+    <h2 class="section-title" data-translate="cycleTitle">Understanding Your Cycle</h2>
 
-  <!-- SEO EDUCATIONAL SECTION -->
-  <section class="seo-section">
-    <h2 class="section-title">Understanding Your Cycle</h2>
-
-    <h3>✨ What is ovulation?</h3>
-    <p>
+    <p><strong data-translate="ovulationQuestion">What is ovulation?</strong></p>
+    <p data-translate="ovulationAnswer">
       Ovulation is when your ovary releases an egg. It usually happens once per cycle and marks your most fertile time.
     </p>
 
-    <h3>✨ What is the fertile window?</h3>
-    <p>
+    <p style="margin-top:20px;"><strong data-translate="fertileWindowQuestion">What is the fertile window?</strong></p>
+    <p data-translate="fertileWindowAnswer">
       Your fertile window includes the five days before ovulation and the day after. These are the days when pregnancy is most likely.
     </p>
-
-    <h3>✨ Why track your cycle?</h3>
-    <p>
-      Tracking helps you understand your body, predict your period, and identify your most fertile days with confidence.
-    </p>
   </section>
 
-  <!-- FORM -->
+  <!-- FORM SECTION -->
   <section class="form-section">
-    <h2 class="section-title" data-i18n="cycleInfo">Your Cycle Information</h2>
+    <h2 class="section-title" data-translate="formTitle">Calculate Your Ovulation</h2>
 
-    <label data-i18n="lastPeriod">First day of your last period:</label>
-    <input type="date" id="lastPeriodDate" />
+    <label data-translate="lastPeriodLabel">Last period date</label>
+    <input type="date" id="lastPeriod" />
 
-    <label data-i18n="cycleLength">Average cycle length (days):</label>
-    <input type="number" id="cycleLength" min="20" max="40" />
+    <label data-translate="cycleLengthLabel">Cycle length (days)</label>
+    <input type="number" id="cycleLength" placeholder="28" />
 
-    <label data-i18n="periodLength">Average period length (days):</label>
-    <input type="number" id="periodLength" min="2" max="10" />
+    <button id="calculateBtn" data-translate="calculateButton">Calculate</button>
 
-    <button id="calculateBtn" data-i18n="calculate">Calculate</button>
-  </section>
-
-  <!-- RESULTS -->
-  <section class="results-section">
-    <h2 class="section-title" data-i18n="results">Your Results</h2>
-
-    <p><strong data-i18n="ovulationDay">Ovulation Day:</strong> <span id="ovulationResult"></span></p>
-    <p><strong data-i18n="fertileWindow">Fertile Window:</strong> <span id="fertileWindowResult"></span></p>
-    <p><strong data-i18n="nextPeriod">Next Period:</strong> <span id="nextPeriodResult"></span></p>
-
-    <button id="shareBtn" class="secondary-btn" data-i18n="share">Share this tracker</button>
-  </section>
-
-  <!-- CALENDAR -->
-  <section class="calendar-section">
-    <h2 class="section-title" data-i18n="calendarTitle">Your Cycle Calendar</h2>
-
-    <div id="calendar"></div>
-
-    <div class="legend">
-      <div><span class="legend-box period"></span> <span data-i18n="legendPeriod">Period</span></div>
-      <div><span class="legend-box follicular"></span> <span data-i18n="legendFollicular">Follicular Phase</span></div>
-      <div><span class="legend-box fertile"></span> <span data-i18n="legendFertile">Fertile Window</span></div>
-      <div><span class="legend-box ovulation"></span> <span data-i18n="legendOvulation">Ovulation</span></div>
-      <div><span class="legend-box luteal"></span> <span data-i18n="legendLuteal">Luteal Phase</span></div>
+    <div id="results" style="margin-top:20px;">
+      <p><strong data-translate="resultOvulation">Your estimated ovulation date is:</strong> <span id="ovulationDate"></span></p>
+      <p><strong data-translate="resultFertileWindow">Your fertile window is:</strong> <span id="fertileWindow"></span></p>
     </div>
-  </section>
-
-  <!-- SYMPTOMS -->
-  <section class="symptoms-section">
-    <h2 class="section-title" data-i18n="symptomsTitle">Daily Symptoms & Notes</h2>
-    <p data-i18n="symptomsHint">Write how you feel today to better understand your cycle patterns.</p>
-    <textarea id="symptomsNotes" rows="4" placeholder="Cramps, mood, energy, discharge, etc."></textarea>
-    <button id="saveSymptoms" class="secondary-btn" data-i18n="saveSymptoms">Save today’s note</button>
   </section>
 
   <!-- FOOTER -->
   <footer class="footer">
-  <p>Designed with care to help you understand your cycle.</p>
-  <p>
-    <a href="index.html">Home</a> ·
-    <a href="privacy.html">Privacy Policy</a> ·
-    <a href="terms.html">Terms of Use</a> ·
-    <a href="contact.html">Contact</a> ·
-    <a href="about.html">About</a> ·
-    <a href="faq.html">FAQ</a> ·
-    <a href="blog.html">Blog</a>
-  </p>
+    <p>
+      <a href="index.html" data-translate="footerHome">Home</a> ·
+      <a href="privacy.html" data-translate="footerPrivacy">Privacy Policy</a> ·
+      <a href="terms.html" data-translate="footerTerms">Terms of Use</a> ·
+      <a href="contact.html" data-translate="footerContact">Contact</a> ·
+      <a href="about.html" data-translate="footerAbout">About</a> ·
+      <a href="faq.html" data-translate="footerFAQ">FAQ</a> ·
+      <a href="blog.html" data-translate="footerBlog">Blog</a>
+    </p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- TRANSLATION DICTIONARY -->
+  <script>
+    const translations = {
+      en: {
+        heroTitle: "Ovulation & Fertility Tracker",
+        heroSubtitle: "Track your cycle, predict ovulation, and understand your fertile window with confidence.",
+
+        cycleTitle: "Understanding Your Cycle",
+        ovulationQuestion: "What is ovulation?",
+        ovulationAnswer: "Ovulation is when your ovary releases an egg. It usually happens once per cycle and marks your most fertile time.",
+        fertileWindowQuestion: "What is the fertile window?",
+        fertileWindowAnswer: "Your fertile window includes the five days before ovulation and the day after. These are the days when pregnancy is most likely.",
+
+        formTitle: "Calculate Your Ovulation",
+        lastPeriodLabel: "Last period date",
+        cycleLengthLabel: "Cycle length (days)",
+        calculateButton: "Calculate",
+        resultOvulation: "Your estimated ovulation date is:",
+        resultFertileWindow: "Your fertile window is:",
+
+        footerHome: "Home",
+        footerPrivacy: "Privacy Policy",
+        footerTerms: "Terms of Use",
+        footerContact: "Contact",
+        footerAbout: "About",
+        footerFAQ: "FAQ",
+        footerBlog: "Blog"
+      },
+
+      fr: {
+        heroTitle: "Suivi de l'ovulation et de la fertilité",
+        heroSubtitle: "Suivez votre cycle, prédisez l'ovulation et comprenez votre fenêtre fertile en toute confiance.",
+
+        cycleTitle: "Comprendre votre cycle",
+        ovulationQuestion: "Qu'est-ce que l'ovulation ?",
+        ovulationAnswer: "L'ovulation est le moment où votre ovaire libère un ovule. Cela se produit généralement une fois par cycle et marque votre période la plus fertile.",
+        fertileWindowQuestion: "Qu'est-ce que la fenêtre fertile ?",
+        fertileWindowAnswer: "Votre fenêtre fertile comprend les cinq jours précédant l'ovulation et le jour suivant. Ce sont les jours où la grossesse est la plus probable.",
+
+        formTitle: "Calculez votre ovulation",
+        lastPeriodLabel: "Date des dernières règles",
+        cycleLengthLabel: "Durée du cycle (jours)",
+        calculateButton: "Calculer",
+        resultOvulation: "Votre date d'ovulation estimée est :",
+        resultFertileWindow: "Votre fenêtre fertile est :",    
+
+        footerHome: "Accueil",
+        footerPrivacy: "Politique de confidentialité",
+        footerTerms: "Conditions d'utilisation",
+        footerContact: "Contact",
+        footerAbout: "À propos",
+        footerFAQ: "FAQ",
+        footerBlog: "Blog"
+      },
+
+      es: {
+        heroTitle: "Rastreador de ovulación y fertilidad",
+        heroSubtitle: "Controla tu ciclo, predice la ovulación y comprende tu ventana fértil con confianza.",
+
+        cycleTitle: "Comprendiendo tu ciclo",
+        ovulationQuestion: "¿Qué es la ovulación?",
+        ovulationAnswer: "La ovulación es cuando tu ovario libera un óvulo. Ocurre una vez por ciclo y marca tu momento más fértil.",
+        fertileWindowQuestion: "¿Qué es la ventana fértil?",
+        fertileWindowAnswer: "Tu ventana fértil incluye los cinco días antes de la ovulación y el día después. Son los días con mayor probabilidad de embarazo.",
+
+        formTitle: "Calcula tu ovulación",
+        lastPeriodLabel: "Fecha de tu último período",
+        cycleLengthLabel: "Duración del ciclo (días)",
+        calculateButton: "Calcular",
+        resultOvulation: "Tu fecha estimada de ovulación es:",
+        resultFertileWindow: "Tu ventana fértil es:",
+
+        footerHome: "Inicio",
+        footerPrivacy: "Política de privacidad",
+        footerTerms: "Términos de uso",
+        footerContact: "Contacto",
+        footerAbout: "Acerca de",
+        footerFAQ: "Preguntas frecuentes",
+        footerBlog: "Blog"
+      },
+
+      sw: {
+        heroTitle: "Kifuatiliaji cha Ovulation na Uzazi",
+        heroSubtitle: "Fuata mzunguko wako, tambua ovulation, na uelewe dirisha lako la uzazi kwa uhakika.",
+
+        cycleTitle: "Kuelewa Mzunguko Wako",
+        ovulationQuestion: "Ovulation ni nini?",
+        ovulationAnswer: "Ovulation hutokea wakati ovari yako inatoa yai. Hutokea mara moja kwa mzunguko na ndiyo kipindi chako cha uzazi zaidi.",
+        fertileWindowQuestion: "Dirisha la uzazi ni nini?",
+        fertileWindowAnswer: "Dirisha lako la uzazi ni siku tano kabla ya ovulation na siku moja baada. Hizi ndizo siku uwezekano wa mimba ni mkubwa.",
+
+        formTitle: "Hesabu Ovulation Yako",
+        lastPeriodLabel: "Tarehe ya hedhi ya mwisho",
+        cycleLengthLabel: "Urefu wa mzunguko (siku)",
+        calculateButton: "Hesabu",
+        resultOvulation: "Tarehe yako ya ovulation inayokadiriwa ni:",
+        resultFertileWindow: "Dirisha lako la uzazi ni:",
+
+        footerHome: "Nyumbani",
+        footerPrivacy: "Sera ya Faragha",
+        footerTerms: "Masharti ya Matumizi",
+        footerContact: "Wasiliana",
+        footerAbout: "Kuhusu",
+        footerFAQ: "Maswali ya Mara kwa Mara",
+        footerBlog: "Blogu"
+      },
+
+      de: {
+        heroTitle: "Ovulations- und Fruchtbarkeitstracker",
+        heroSubtitle: "Verfolge deinen Zyklus, berechne den Eisprung und verstehe dein fruchtbares Fenster mit Vertrauen.",
+
+        cycleTitle: "Deinen Zyklus verstehen",
+        ovulationQuestion: "Was ist der Eisprung?",
+        ovulationAnswer: "Der Eisprung ist der Moment, in dem dein Eierstock eine Eizelle freisetzt. Er passiert einmal pro Zyklus und markiert deine fruchtbarste Zeit.",
+        fertileWindowQuestion: "Was ist das fruchtbare Fenster?",
+        fertileWindowAnswer: "Dein fruchtbares Fenster umfasst die fünf Tage vor dem Eisprung und den Tag danach. Das sind die Tage mit der höchsten Wahrscheinlichkeit für eine Schwangerschaft.",
+
+        formTitle: "Berechne deinen Eisprung",
+        lastPeriodLabel: "Datum der letzten Periode",
+        cycleLengthLabel: "Zykluslänge (Tage)",
+        calculateButton: "Berechnen",
+        resultOvulation: "Dein geschätzter Eisprung ist am:",
+        resultFertileWindow: "Dein fruchtbares Fenster ist:",
+
+        footerHome: "Startseite",
+        footerPrivacy: "Datenschutzrichtlinie",
+        footerTerms: "Nutzungsbedingungen",
+        footerContact: "Kontakt",
+        footerAbout: "Über uns",
+        footerFAQ: "FAQ",
+        footerBlog: "Blog"
+      },
+
+      pt: {
+        heroTitle: "Rastreador de Ovulação e Fertilidade",
+        heroSubtitle: "Acompanhe seu ciclo, preveja a ovulação e entenda sua janela fértil com confiança.",
+
+        cycleTitle: "Entendendo seu ciclo",
+        ovulationQuestion: "O que é ovulação?",
+        ovulationAnswer: "Ovulação é quando seu ovário libera um óvulo. Isso acontece uma vez por ciclo e marca seu período mais fértil.",
+        fertileWindowQuestion: "O que é a janela fértil?",
+        fertileWindowAnswer: "Sua janela fértil inclui os cinco dias antes da ovulação e o dia seguinte. São os dias com maior chance de gravidez.",
+
+        formTitle: "Calcule sua ovulação",
+        lastPeriodLabel: "Data da última menstruação",
+        cycleLengthLabel: "Duração do ciclo (dias)",
+        calculateButton: "Calcular",
+        resultOvulation: "Sua data estimada de ovulação é:",
+        resultFertileWindow: "Sua janela fértil é:",
+
+        footerHome: "Início",
+        footerPrivacy: "Política de Privacidade",
+        footerTerms: "Termos de Uso",
+        footerContact: "Contato",
+        footerAbout: "Sobre",
+        footerFAQ: "FAQ",
+        footerBlog: "Blog"
+      }
+    };
+  </script>
+
+  <!-- LANGUAGE + CALCULATOR LOGIC -->
+  <script>
+    function setLanguage(lang) {
+      localStorage.setItem("appLanguage", lang);
+      const elements = document.querySelectorAll("[data-translate]");
+      elements.forEach(el => {
+        const key = el.getAttribute("data-translate");
+        if (translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    function setupCalculator() {
+      const btn = document.getElementById("calculateBtn");
+      if (!btn) return;
+
+      btn.addEventListener("click", () => {
+        const lastPeriodValue = document.getElementById("lastPeriod").value;
+        const cycleLengthValue = parseInt(document.getElementById("cycleLength").value, 10);
+
+        if (!lastPeriodValue || !cycleLengthValue || cycleLengthValue <= 0) {
+          document.getElementById("ovulationDate").textContent = "";
+          document.getElementById("fertileWindow").textContent = "";
+          return;
+        }
+
+        const lastPeriodDate = new Date(lastPeriodValue);
+        const ovulationOffset = cycleLengthValue - 14; // typical luteal phase
+        const ovulationDate = new Date(lastPeriodDate);
+        ovulationDate.setDate(ovulationDate.getDate() + ovulationOffset);
+
+        const fertileStart = new Date(ovulationDate);
+        fertileStart.setDate(fertileStart.getDate() - 5);
+
+        const fertileEnd = new Date(ovulationDate);
+        fertileEnd.setDate(fertileEnd.getDate() + 1);
+
+        const options = { year: "numeric", month: "short", day: "numeric" };
+
+        document.getElementById("ovulationDate").textContent = ovulationDate.toLocaleDateString(undefined, options);
+        document.getElementById("fertileWindow").textContent =
+          fertileStart.toLocaleDateString(undefined, options) + " - " +
+          fertileEnd.toLocaleDateString(undefined, options);
+      });
+    }
+
+    window.onload = () => {
+      const savedLang = localStorage.getItem("appLanguage") || "en";
+      document.getElementById("languageSelect").value = savedLang;
+      setLanguage(savedLang);
+      setupCalculator();
+    };
+  </script>
+
 </body>
-  </html>
+</html>
