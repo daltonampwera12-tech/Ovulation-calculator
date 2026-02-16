@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Causes Irregular Cycles? | Women’s Health Article</title>
+
+  <meta name="description" content="Learn the common causes of irregular menstrual cycles, including hormones, stress, lifestyle, and health conditions." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="What Causes Irregular Cycles?" />
+  <meta property="og:description" content="Understand the common reasons behind irregular menstrual cycles and what they may mean for your health." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="favicon.png" />
+  <meta property="og:url" content="article-irregular-cycles.html" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="hero" style="padding: 30px 20px;">
+    <h1 class="hero-title">What Causes Irregular Cycles?</h1>
+    <p class="hero-subtitle">Understanding why your cycle may shift from month to month.</p>
+  </header>
+
+  <!-- ARTICLE CONTENT -->
+  <section class="form-section">
+
+    <p style="color:#7a4b63; line-height:1.7;">
+      Many women experience irregular cycles at some point in their lives. A “normal” cycle is typically 21–35 days, 
+      but several factors can cause your period to come earlier, later, or skip entirely.
+    </p>
+
+    <h2 class="section-title" style="margin-top:25px;">1. Hormonal Imbalance</h2>
+    <p style="color:#7a4b63;">
+      Hormones like estrogen and progesterone control your menstrual cycle. When they fluctuate, your cycle may become irregular.
+    </p>
+
+    <h2 class="section-title" style="margin-top:25px;">2. Stress</h2>
+    <p style="color:#7a4b63;">
+      High stress levels can delay ovulation or stop it temporarily, leading to late or missed periods.
+    </p>
+
+    <h2 class="section-title" style="margin-top:25px;">3. Lifestyle Changes</h2>
+    <p style="color:#7a4b63;">
+      Sudden weight loss, intense exercise, or poor sleep can affect your cycle rhythm.
+    </p>
+
+    <h2 class="section-title" style="margin-top:25px;">4. Birth Control</h2>
+    <p style="color:#7a4b63;">
+      Starting, stopping, or switching birth control can cause temporary irregularity.
+    </p>
+
+    <h2 class="section-title" style="margin-top:25px;">5. Medical Conditions</h2>
+    <p style="color:#7a4b63;">
+      Conditions like PCOS, thyroid disorders, or high prolactin levels can affect cycle length.
+    </p>
+
+    <!-- SHARE BUTTON -->
+    <button onclick="shareArticle()" 
+      style="margin-top:30px; padding:12px 20px; background:#d14f8f; color:white; border:none; border-radius:10px; font-size:1rem;">
+      Share This Article
+    </button>
+
+    <script>
+      function shareArticle() {
+        if (navigator.share) {
+          navigator.share({
+            title: 'What Causes Irregular Cycles?',
+            text: 'Learn the common causes of irregular menstrual cycles.',
+            url: window.location.href
+          });
+        } else {
+          alert('Sharing is not supported on this device.');
+        }
+      }
+    </script>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Designed with care to help you understand your cycle.</p>
+    <p>
+      <a href="index.html">Home</a> ·
+      <a href="privacy.html">Privacy Policy</a> ·
+      <a href="terms.html">Terms of Use</a> ·
+      <a href="contact.html">Contact</a> ·
+      <a href="about.html">About</a> ·
+      <a href="faq.html">FAQ</a> ·
+      <a href="blog.html">Blog</a>
+    </p>
+  </footer>
+
+</body>
+</html>
