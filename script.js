@@ -291,20 +291,22 @@ function createMonthCalendar(date, fertileDays, ovulationDays, periodDays) {
   monthDiv.appendChild(grid);
   return monthDiv;
        }
+
 let deferredPrompt;
 
+// Listen for the install prompt event
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
+});
 
-  const btn = document.getElementById("installAppBtn");
-  btn.style.display = "block";
-
-  btn.addEventListener("click", async () => {
-    btn.style.display = "none";
+// Permanent install button
+document.getElementById("installAppPermanent").addEventListener("click", async () => {
+  if (deferredPrompt) {
     deferredPrompt.prompt();
-
     const choice = await deferredPrompt.userChoice;
     deferredPrompt = null;
-  });
+  } else {
+    alert("To install the app, use your browser menu and choose 'Add to Home Screen'.");
+  }
 });
