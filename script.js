@@ -30,64 +30,6 @@ const translations = {
     nav_blog: "Blog",
     footer_disclaimer:
       "This tool is for informational purposes only and does not replace professional medical advice."
-  },
-
-  es: {
-    hero_title: "Calcula tu ovulación",
-    hero_subtitle:
-      "Sigue tus días fértiles con una calculadora de ovulación suave y femenina, diseñada para tu ciclo.",
-    how_it_works_title: "Cómo funciona esta calculadora de ovulación",
-    how_it_works_text:
-      "Ingresa el primer día de tu último período, la duración de tu ciclo y la duración de tu período. Calculamos tu ovulación, ventana fértil y generamos un calendario de fertilidad de 3 meses.",
-    calculator_title: "Detalles de tu ciclo",
-    label_last_period: "Fecha de tu último período",
-    label_cycle_length: "Duración del ciclo (días)",
-    label_period_length: "Duración del período (días)",
-    button_calculate: "Calcular",
-    result_ovulation_label: "Tu fecha estimada de ovulación es:",
-    result_fertile_window_label: "Tu ventana fértil es:",
-    calendar_title: "Tu calendario de fertilidad de 3 meses",
-    seo_section_title: "Un acompañante suave para tu fertilidad",
-    seo_section_text:
-      "Esta calculadora de ovulación ofrece una forma suave y comprensiva de entender tu ciclo. No reemplaza el consejo médico, pero puede ayudarte a sentirte más conectada con tus días fértiles.",
-    nav_home: "Inicio",
-    nav_privacy: "Política de privacidad",
-    nav_terms: "Términos de uso",
-    nav_contact: "Contacto",
-    nav_about: "Acerca de",
-    nav_faq: "Preguntas frecuentes",
-    nav_blog: "Blog",
-    footer_disclaimer:
-      "Esta herramienta es solo informativa y no reemplaza el consejo médico profesional."
-  },
-
-  fr: {
-    hero_title: "Calculez votre ovulation",
-    hero_subtitle:
-      "Suivez vos jours fertiles avec une calculatrice d’ovulation douce et féminine, adaptée à votre cycle.",
-    how_it_works_title: "Comment fonctionne cette calculatrice d’ovulation",
-    how_it_works_text:
-      "Entrez le premier jour de vos dernières règles, la durée de votre cycle et la durée de vos règles. Nous estimons votre ovulation, votre fenêtre fertile et générons un calendrier de fertilité sur 3 mois.",
-    calculator_title: "Les détails de votre cycle",
-    label_last_period: "Date de vos dernières règles",
-    label_cycle_length: "Durée du cycle (jours)",
-    label_period_length: "Durée des règles (jours)",
-    button_calculate: "Calculer",
-    result_ovulation_label: "Votre date d’ovulation estimée est :",
-    result_fertile_window_label: "Votre fenêtre fertile est :",
-    calendar_title: "Votre calendrier de fertilité sur 3 mois",
-    seo_section_title: "Un compagnon doux pour votre fertilité",
-    seo_section_text:
-      "Cette calculatrice d’ovulation offre une façon douce et rassurante de comprendre votre cycle. Elle ne remplace pas un avis médical, mais peut vous aider à mieux ressentir vos jours fertiles.",
-    nav_home: "Accueil",
-    nav_privacy: "Politique de confidentialité",
-    nav_terms: "Conditions d’utilisation",
-    nav_contact: "Contact",
-    nav_about: "À propos",
-    nav_faq: "FAQ",
-    nav_blog: "Blog",
-    footer_disclaimer:
-      "Cet outil est fourni à titre informatif et ne remplace pas un avis médical professionnel."
   }
 };
 
@@ -143,7 +85,7 @@ document.getElementById("calculateBtn").addEventListener("click", () => {
 
   const lpDate = new Date(lastPeriod);
 
-  // Ovulation = cycleLength - 14
+  // First ovulation = cycleLength - 14
   const ovulationDate = new Date(lpDate);
   ovulationDate.setDate(ovulationDate.getDate() + (cycleLength - 14));
 
@@ -168,7 +110,7 @@ document.getElementById("calculateBtn").addEventListener("click", () => {
 });
 
 /* ---------------------------
-   3-MONTH CALENDAR GENERATOR
+   3-MONTH ROLLING PREDICTION
 ---------------------------- */
 
 function generateThreeMonthCalendar(startDate, cycleLength, periodLength) {
@@ -179,36 +121,44 @@ function generateThreeMonthCalendar(startDate, cycleLength, periodLength) {
   const ovulationDays = [];
   const periodDays = [];
 
-  // Calculate ovulation + fertile window
-  const ovulation = new Date(startDate);
-  ovulation.setDate(ovulation.getDate() + (cycleLength - 14));
+  let currentPeriodStart = new Date(startDate);
 
-  const fertileStart = new Date(ovulation);
-  fertileStart.setDate(fertileStart.getDate() - 5);
+  for (let cycle = 0; cycle < 3; cycle++) {
+    let cycleStart = new Date(currentPeriodStart);
 
-  const fertileEnd = new Date(ovulation);
-  fertileEnd.setDate(fertileEnd.getDate() + 1);
+    // Period days
+    for (let i = 0; i < periodLength; i++) {
+      const d = new Date(cycleStart);
+      d.setDate(d.getDate() + i);
+      periodDays.push(d.toDateString());
+    }
 
-  // Fill fertile days
-  let d = new Date(fertileStart);
-  while (d <= fertileEnd) {
-    fertileDays.push(d.toDateString());
-    d = new Date(d.getTime() + 86400000);
-  }
+    // Ovulation
+    const ovulation = new Date(cycleStart);
+    ovulation.setDate(ovulation.getDate() + (cycleLength - 14));
+    ovulationDays.push(ovulation.toDateString());
 
-  // Fill ovulation day
-  ovulationDays.push(ovulation.toDateString());
+    // Fertile window
+    const fertileStart = new Date(ovulation);
+    fertileStart.setDate(fertileStart.getDate() - 5);
 
-  // Fill period days
-  let p = new Date(startDate);
-  for (let i = 0; i < periodLength; i++) {
-    periodDays.push(p.toDateString());
-    p.setDate(p.getDate() + 1);
+    const fertileEnd = new Date(ovulation);
+    fertileEnd.setDate(fertileEnd.getDate() + 1);
+
+    let d = new Date(fertileStart);
+    while (d <= fertileEnd) {
+      fertileDays.push(d.toDateString());
+      d = new Date(d.getTime() + 86400000);
+    }
+
+    // Next cycle start
+    currentPeriodStart.setDate(currentPeriodStart.getDate() + cycleLength);
   }
 
   // Generate 3 months
+  const firstMonth = new Date(startDate);
   for (let i = 0; i < 3; i++) {
-    const monthDate = new Date(startDate);
+    const monthDate = new Date(firstMonth);
     monthDate.setMonth(monthDate.getMonth() + i);
 
     container.appendChild(
@@ -282,4 +232,4 @@ function createMonthCalendar(date, fertileDays, ovulationDays, periodDays) {
 
   monthDiv.appendChild(grid);
   return monthDiv;
-     }
+  }
