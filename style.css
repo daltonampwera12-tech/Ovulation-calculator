@@ -46,27 +46,7 @@ body.dark {
   transition: 0.3s;
 }
 
-.theme-toggle:hover {
-  background: #ff9fbe;
-}
 
-/* INSTALL BUTTON (merged and fixed) */
-.install-btn {
-  padding: 12px 20px;
-  background-color: #ff7fbf;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 15px 0;
-  display: none;
-  transition: 0.3s;
-}
-
-.install-btn:hover {
-  background: #ffe3f1;
-}
 
 /* HERO */
 .hero {
@@ -85,6 +65,47 @@ body.dark {
   max-width: 340px;
   margin: 10px auto 0;
   color: #555;
+}
+/* ---------------------------
+   INSTALL BUTTONS
+---------------------------- */
+
+/* Base style (used for both header and permanent hero button) */
+.install-btn {
+  padding: 12px 20px;
+  background-color: #ff7fbf; /* pink accent */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: 0.3s;
+  display: inline-block; /* ensure visible */
+}
+
+/* Hover effect */
+.install-btn:hover {
+  background-color: #ff9fbe;
+}
+
+/* Positioning for permanent hero button */
+#installAppPermanent {
+  display: block;        /* ensures it's always on the page */
+  text-align: center;
+  width: 90%;            /* responsive width */
+  max-width: 320px;      /* prevent stretching too wide */
+  margin: 20px auto;     /* center it */
+}
+
+/* Dark mode */
+body.dark .install-btn {
+  background-color: #d94f8c;
+  color: white;
+}
+
+body.dark .install-btn:hover {
+  background-color: #ffbcd4;
 }
 
 /* SECTIONS */
