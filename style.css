@@ -63,6 +63,19 @@ body.dark {
   display: none;
 }
 
+<style>
+  .install-btn {
+    padding: 12px 20px;
+    background-color: #ff7fbf;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 15px 0;
+  }
+</style>
+
 .install-btn:hover {
   background: #ffe3f1;
 }
