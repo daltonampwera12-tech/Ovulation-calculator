@@ -1,8 +1,8 @@
 // --------------------------------------------------
-// Online‑Only PWA Service Worker
+// Online‑First PWA Service Worker
 // --------------------------------------------------
 
-const SW_VERSION = "v12"; // bump this whenever you update
+const SW_VERSION = "v13"; // bump this whenever you update
 
 self.addEventListener("install", (event) => {
   // Activate immediately
@@ -14,13 +14,27 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Network‑only fetch: no caching at all
+// Network-first fetch: try network, fallback to offline message
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    fetch(event.request).catch(() => {
-      return new Response(
-        "You are offline. Please reconnect to the internet to use this app."
-      );
-    })
+    fetch(event.request)
+      .then((response) => {
+        // If response is valid, return it
+        return response;
+      })
+      .catch(() => {
+        // Fallback for offline usage
+        if (event.request.destination === "document") {
+          return new Response(
+            `<h1>You are offline</h1><p>Please reconnect to the internet to use this app.</p>`,
+            { headers: { "Content-Type": "text/html" } }
+          );
+        } else {
+          return new Response(
+            "You are offline. Please reconnect to the internet.",
+            { headers: { "Content-Type": "text/plain" } }
+          );
+        }
+      })
   );
 });
