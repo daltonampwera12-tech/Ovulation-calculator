@@ -50,31 +50,19 @@ body.dark {
   background: #ff9fbe;
 }
 
-/* INSTALL BUTTON */
+/* INSTALL BUTTON (merged and fixed) */
 .install-btn {
-  padding: 8px 12px;
+  padding: 12px 20px;
+  background-color: #ff7fbf;
+  color: white;
+  border: none;
   border-radius: 8px;
-  border: 1px solid #ffbcd4;
-  background: #ffffff;
-  color: #d94f8c;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
-  transition: 0.3s;
+  margin: 15px 0;
   display: none;
+  transition: 0.3s;
 }
-
-<style>
-  .install-btn {
-    padding: 12px 20px;
-    background-color: #ff7fbf;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 15px 0;
-  }
-</style>
 
 .install-btn:hover {
   background: #ffe3f1;
@@ -273,6 +261,7 @@ body.dark .period-day {
 body.dark .footer a {
   color: #ffbcd4;
 }
+
 .calendar-legend {
   display: flex;
   gap: 12px;
