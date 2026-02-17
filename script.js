@@ -290,7 +290,11 @@ function createMonthCalendar(date, fertileDays, ovulationDays, periodDays) {
 
   monthDiv.appendChild(grid);
   return monthDiv;
-       }
+}
+
+/* ---------------------------
+   PERMANENT INSTALL BUTTON
+---------------------------- */
 
 let deferredPrompt;
 
@@ -300,7 +304,7 @@ window.addEventListener("beforeinstallprompt", (e) => {
   deferredPrompt = e;
 });
 
-// Permanent install button
+// Permanent install button logic
 document.getElementById("installAppPermanent").addEventListener("click", async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
