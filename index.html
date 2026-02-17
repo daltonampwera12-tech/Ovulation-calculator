@@ -36,9 +36,9 @@
   <!-- PWA -->
   <meta name="theme-color" content="#ffe3f1" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icon-192.png" />
+  <link rel="icon" href="favicon.png" />
 
-  <!-- YOUR ADSENSE CODE (EXACT, UNTOUCHED) -->
+  <!-- YOUR ADSENSE CODE -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5575926039966818"
      crossorigin="anonymous"></script>
 
@@ -89,6 +89,7 @@
 
   <!-- STYLES -->
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -100,13 +101,10 @@
         <option value="es">Español</option>
         <option value="fr">Français</option>
       </select>
-      <button id="themeToggle" class="theme-toggle">☾</button>
       <button id="installButton" class="install-btn">Install App</button>
     </div>
   </header>
 
-  <link rel="icon" href="favicon.png">
-  
   <!-- Hero -->
   <main>
     <section class="hero">
@@ -116,6 +114,8 @@
       <p class="hero-subtitle" data-translate="hero_subtitle">
         Gently track your fertile days with a soft, feminine ovulation calculator designed for your cycle.
       </p>
+      <!-- Permanent install button in hero -->
+      <button id="installAppPermanent" class="install-btn">Install App</button>
     </section>
 
     <!-- Info Section -->
@@ -170,134 +170,100 @@
     </section>
 
     <!-- 3-Month Calendar -->
-<section class="form-section">
-  <h2 class="section-title" data-translate="calendar_title">
-    Your 3-Month Fertility Calendar
-  </h2>
+    <section class="form-section">
+      <h2 class="section-title" data-translate="calendar_title">
+        Your 3-Month Fertility Calendar
+      </h2>
 
-  <!-- COLOR LEGEND -->
-  <div class="calendar-legend">
-    <span class="legend-box period"></span> Period days
-    <span class="legend-box fertile"></span> Fertile window
-    <span class="legend-box ovulation"></span> Ovulation day
-    <span class="legend-box normal"></span> Normal day
-  </div>
+      <!-- COLOR LEGEND -->
+      <div class="calendar-legend">
+        <span class="legend-box period"></span> Period days
+        <span class="legend-box fertile"></span> Fertile window
+        <span class="legend-box ovulation"></span> Ovulation day
+        <span class="legend-box normal"></span> Normal day
+      </div>
 
-  <div id="calendarContainer" class="calendar-scroll"></div>
-</section>
-
-<button id="installAppPermanent" class="install-btn">
-  Install App
-</button>
-    
-<!-- Soft SEO Text -->
-<section class="form-section">
-  <h2 class="section-title" data-translate="seo_section_title">
-    A gentle ovulation and fertility companion
-  </h2>
-  <p data-translate="seo_section_text">
-    This ovulation calculator offers a soft, supportive way
-  </p>
-</section>
-
-<!-- Understanding Ovulation -->
-<section class="info-section">
-  <h2>Understanding Ovulation</h2>
-  <p>
-    Ovulation is the moment in your cycle when an egg is released from the ovary. 
-    This usually happens once per cycle and marks the time when you are most fertile. 
-    After the egg is released, it can be fertilized for about 12–24 hours. 
-    Because sperm can survive in the reproductive tract for up to five days, 
-    your fertile window includes the days leading up to ovulation as well.
-  </p>
-
-  <p>
-    Every woman’s cycle is unique. Some ovulate like clockwork, while others may 
-    experience natural variations from month to month. Understanding your ovulation 
-    pattern can help you feel more connected to your body, whether you’re trying to 
-    conceive, avoid pregnancy naturally, or simply learn more about your cycle.
-  </p>
-
-  <p>
-    This calculator estimates your ovulation based on your cycle length and the 
-    first day of your last period. While it cannot predict with medical accuracy, 
-    it offers a gentle, supportive guide to help you understand your fertile days.
-  </p>
-</section>
-
-<!-- What Affects Ovulation -->
-<section class="info-section">
-  <h2>What Affects Ovulation?</h2>
-  <p>
-    Ovulation can shift from month to month, and many factors can influence when 
-    it happens. These changes are completely normal and happen to most women at 
-    some point in their lives.
-  </p>
-
-  <ul>
-    <li><strong>Stress:</strong> Emotional or physical stress can delay or disrupt ovulation.</li>
-    <li><strong>Sleep patterns:</strong> Irregular sleep or night‑shift work may affect cycle timing.</li>
-    <li><strong>Hormonal changes:</strong> Natural fluctuations can shift your fertile window.</li>
-    <li><strong>Weight changes:</strong> Significant weight loss or gain may impact ovulation.</li>
-    <li><strong>Exercise levels:</strong> Very intense training can delay ovulation for some women.</li>
-    <li><strong>Illness:</strong> Being sick around ovulation time can cause temporary cycle changes.</li>
-    <li><strong>Age:</strong> Cycles often become shorter or more irregular with age.</li>
-  </ul>
-
-  <p>
-    These factors are common and usually temporary. Tracking your cycle over time 
-    can help you notice patterns and better understand your body’s natural rhythm.
-  </p>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-  ...
-</footer>
+      <div id="calendarContainer" class="calendar-scroll"></div>
     </section>
-  </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <nav>
-      <a href="index.html" data-translate="nav_home">Home</a> ·
-      <a href="privacy.html" data-translate="nav_privacy">Privacy Policy</a> ·
-      <a href="terms.html" data-translate="nav_terms">Terms of Use</a> ·
-      <a href="contact.html" data-translate="nav_contact">Contact</a> ·
-      <a href="about.html" data-translate="nav_about">About</a> ·
-      <a href="faq.html" data-translate="nav_faq">FAQ</a> ·
-      <a href="blog.html" data-translate="nav_blog">Blog</a>
-    </nav>
-    <p data-translate="footer_disclaimer">
-      This tool is for informational purposes only and does not replace professional medical advice.
-    </p>
-  </footer>
+    <!-- Soft SEO Text -->
+    <section class="form-section">
+      <h2 class="section-title" data-translate="seo_section_title">
+        A gentle ovulation and fertility companion
+      </h2>
+      <p data-translate="seo_section_text">
+        This ovulation calculator offers a soft, supportive way
+      </p>
+    </section>
+
+    <!-- Understanding Ovulation -->
+    <section class="info-section">
+      <h2>Understanding Ovulation</h2>
+      <p>
+        Ovulation is the moment in your cycle when an egg is released from the ovary. 
+        This usually happens once per cycle and marks the time when you are most fertile. 
+        After the egg is released, it can be fertilized for about 12–24 hours. 
+        Because sperm can survive in the reproductive tract for up to five days, 
+        your fertile window includes the days leading up to ovulation as well.
+      </p>
+
+      <p>
+        Every woman’s cycle is unique. Some ovulate like clockwork, while others may 
+        experience natural variations from month to month. Understanding your ovulation 
+        pattern can help you feel more connected to your body, whether you’re trying to 
+        conceive, avoid pregnancy naturally, or simply learn more about your cycle.
+      </p>
+
+      <p>
+        This calculator estimates your ovulation based on your cycle length and the 
+        first day of your last period. While it cannot predict with medical accuracy, 
+        it offers a gentle, supportive guide to help you understand your fertile days.
+      </p>
+    </section>
+
+    <!-- What Affects Ovulation -->
+    <section class="info-section">
+      <h2>What Affects Ovulation?</h2>
+      <p>
+        Ovulation can shift from month to month, and many factors can influence when 
+        it happens. These changes are completely normal and happen to most women at 
+        some point in their lives.
+      </p>
+
+      <ul>
+        <li><strong>Stress:</strong> Emotional or physical stress can delay or disrupt ovulation.</li>
+        <li><strong>Sleep patterns:</strong> Irregular sleep or night‑shift work may affect cycle timing.</li>
+        <li><strong>Hormonal changes:</strong> Natural fluctuations can shift your fertile window.</li>
+        <li><strong>Weight changes:</strong> Significant weight loss or gain may impact ovulation.</li>
+        <li><strong>Exercise levels:</strong> Very intense training can delay ovulation for some women.</li>
+        <li><strong>Illness:</strong> Being sick around ovulation time can cause temporary cycle changes.</li>
+        <li><strong>Age:</strong> Cycles often become shorter or more irregular with age.</li>
+      </ul>
+
+      <p>
+        These factors are common and usually temporary. Tracking your cycle over time 
+        can help you notice patterns and better understand your body’s natural rhythm.
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <nav>
+        <a href="index.html" data-translate="nav_home">Home</a> ·
+        <a href="privacy.html" data-translate="nav_privacy">Privacy Policy</a> ·
+        <a href="terms.html" data-translate="nav_terms">Terms of Use</a> ·
+        <a href="contact.html" data-translate="nav_contact">Contact</a> ·
+        <a href="about.html" data-translate="nav_about">About</a> ·
+        <a href="faq.html" data-translate="nav_faq">FAQ</a> ·
+        <a href="blog.html" data-translate="nav_blog">Blog</a>
+      </nav>
+      <p data-translate="footer_disclaimer">
+        This tool is for informational purposes only and does not replace professional medical advice.
+      </p>
+    </footer>
+  </main>
 
   <!-- Scripts -->
   <script src="script.js"></script>
-
-  <!-- PWA Install Logic -->
-  <script>
-    let deferredPrompt;
-    const installButton = document.getElementById("installButton");
-
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installButton.style.display = "inline-block";
-    });
-
-    installButton.addEventListener("click", async () => {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      installButton.style.display = "none";
-    });
-
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js");
-    }
-  </script>
 </body>
-        </html>
+  </html>
