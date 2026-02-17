@@ -291,3 +291,20 @@ function createMonthCalendar(date, fertileDays, ovulationDays, periodDays) {
   monthDiv.appendChild(grid);
   return monthDiv;
        }
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  const btn = document.getElementById("installAppBtn");
+  btn.style.display = "block";
+
+  btn.addEventListener("click", async () => {
+    btn.style.display = "none";
+    deferredPrompt.prompt();
+
+    const choice = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  });
+});
