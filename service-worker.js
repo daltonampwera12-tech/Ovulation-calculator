@@ -2,7 +2,7 @@
 // Online‑Only PWA Service Worker
 // --------------------------------------------------
 
-const SW_VERSION = "v3"; // bump this whenever you update
+const SW_VERSION = "v12"; // bump this whenever you update
 
 self.addEventListener("install", (event) => {
   // Activate immediately
