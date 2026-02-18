@@ -303,3 +303,27 @@ body.dark .footer a {
 .legend-box.fertile { background: #ffe066; }
 .legend-box.ovulation { background: #9b5de5; }
 .legend-box.normal { background: #ffeef6; }
+/* ===== Ovulation Info Section Styling ===== */
+
+.info-section {
+  margin-top: 40px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.info-section h2 {
+  margin-top: 25px;
+}
+
+.info-section h3 {
+  margin-top: 20px;
+}
+
+.disclaimer {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fff0f6;
+  border-left: 4px solid #ff69b4;
+  font-size: 0.9rem;
+}
