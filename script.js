@@ -314,18 +314,3 @@ document.getElementById("installAppPermanent").addEventListener("click", async (
     alert("To install the app, use your browser menu and choose 'Add to Home Screen'.");
   }
 });
-
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-
-  // Track that the install prompt was shown
-  gtag('event', 'pwa_install_prompt_shown');
-});
-
-// When user actually installs the app
-window.addEventListener('appinstalled', () => {
-  gtag('event', 'pwa_installed');
-});
