@@ -30,64 +30,6 @@ const translations = {
     nav_blog: "Blog",
     footer_disclaimer:
       "This tool is for informational purposes only and does not replace professional medical advice."
-  },
-
-  es: {
-    hero_title: "Calcula tu ovulación",
-    hero_subtitle:
-      "Controla tus días fértiles con una calculadora de ovulación suave y femenina diseñada para tu ciclo.",
-    how_it_works_title: "Cómo funciona esta calculadora de ovulación",
-    how_it_works_text:
-      "Ingresa el primer día de tu último período, la duración promedio de tu ciclo y la duración de tu período. Calculamos tu día de ovulación, tu ventana fértil y generamos un calendario de fertilidad de 3 meses.",
-    calculator_title: "Detalles de tu ciclo",
-    label_last_period: "Fecha del último período",
-    label_cycle_length: "Duración del ciclo (días)",
-    label_period_length: "Duración del período (días)",
-    button_calculate: "Calcular",
-    result_ovulation_label: "Tu fecha estimada de ovulación es:",
-    result_fertile_window_label: "Tu ventana fértil es:",
-    calendar_title: "Tu calendario de fertilidad de 3 meses",
-    seo_section_title: "Un compañero suave de ovulación y fertilidad",
-    seo_section_text:
-      "Esta calculadora de ovulación ofrece una forma suave y de apoyo para comprender tu ciclo. No reemplaza el consejo médico profesional, pero puede ayudarte a sentirte más en sintonía con tus días fértiles.",
-    nav_home: "Inicio",
-    nav_privacy: "Política de privacidad",
-    nav_terms: "Términos de uso",
-    nav_contact: "Contacto",
-    nav_about: "Acerca de",
-    nav_faq: "Preguntas frecuentes",
-    nav_blog: "Blog",
-    footer_disclaimer:
-      "Esta herramienta es solo para fines informativos y no reemplaza el consejo médico profesional."
-  },
-
-  fr: {
-    hero_title: "Calculez votre ovulation",
-    hero_subtitle:
-      "Suivez vos jours fertiles avec une calculatrice d’ovulation douce et féminine conçue pour votre cycle.",
-    how_it_works_title: "Comment fonctionne cette calculatrice d’ovulation",
-    how_it_works_text:
-      "Entrez le premier jour de vos dernières règles, la durée moyenne de votre cycle et la durée de vos règles. Nous estimons votre jour d’ovulation, votre fenêtre fertile et générons un calendrier de fertilité sur 3 mois.",
-    calculator_title: "Les détails de votre cycle",
-    label_last_period: "Date des dernières règles",
-    label_cycle_length: "Durée du cycle (jours)",
-    label_period_length: "Durée des règles (jours)",
-    button_calculate: "Calculer",
-    result_ovulation_label: "Votre date d’ovulation estimée est :",
-    result_fertile_window_label: "Votre fenêtre fertile est :",
-    calendar_title: "Votre calendrier de fertilité sur 3 mois",
-    seo_section_title: "Un compagnon doux pour l’ovulation et la fertilité",
-    seo_section_text:
-      "Cette calculatrice d’ovulation offre une manière douce et rassurante de comprendre votre cycle. Elle ne remplace pas un avis médical professionnel, mais elle peut vous aider à mieux ressentir vos jours fertiles.",
-    nav_home: "Accueil",
-    nav_privacy: "Politique de confidentialité",
-    nav_terms: "Conditions d’utilisation",
-    nav_contact: "Contact",
-    nav_about: "À propos",
-    nav_faq: "FAQ",
-    nav_blog: "Blog",
-    footer_disclaimer:
-      "Cet outil est fourni à titre informatif uniquement et ne remplace pas un avis médical professionnel."
   }
 };
 
@@ -143,11 +85,11 @@ document.getElementById("calculateBtn").addEventListener("click", () => {
 
   const lpDate = new Date(lastPeriod);
 
-  // First ovulation = cycleLength - 14
+  // Ovulation = cycleLength - 14
   const ovulationDate = new Date(lpDate);
   ovulationDate.setDate(ovulationDate.getDate() + (cycleLength - 14));
 
-  // Fertile window = ovulation -5 to ovulation +1
+  // Fertile window
   const fertileStart = new Date(ovulationDate);
   fertileStart.setDate(fertileStart.getDate() - 5);
 
@@ -165,6 +107,16 @@ document.getElementById("calculateBtn").addEventListener("click", () => {
     fertileEnd.toLocaleDateString(undefined, options);
 
   generateThreeMonthCalendar(lpDate, cycleLength, periodLength);
+
+  /* ⭐ SAVE VALUES FOR REMINDER ⭐ */
+  const nextPeriod = new Date(lpDate);
+  nextPeriod.setDate(nextPeriod.getDate() + cycleLength);
+
+  window.calculatedNextPeriod = nextPeriod.toLocaleDateString(undefined, options);
+  window.calculatedOvulation = ovulationDate.toLocaleDateString(undefined, options);
+
+  /* ⭐ SHOW REMINDER BOX ⭐ */
+  document.getElementById("reminder-box").style.display = "block";
 });
 
 /* ---------------------------
@@ -209,11 +161,9 @@ function generateThreeMonthCalendar(startDate, cycleLength, periodLength) {
       d = new Date(d.getTime() + 86400000);
     }
 
-    // Next cycle start
     currentPeriodStart.setDate(currentPeriodStart.getDate() + cycleLength);
   }
 
-  // Generate 3 months
   const firstMonth = new Date(startDate);
   for (let i = 0; i < 3; i++) {
     const monthDate = new Date(firstMonth);
@@ -245,7 +195,6 @@ function createMonthCalendar(date, fertileDays, ovulationDays, periodDays) {
   const grid = document.createElement("div");
   grid.className = "calendar-grid";
 
-  // Day names
   const dayNames = [];
   for (let i = 0; i < 7; i++) {
     dayNames.push(
@@ -262,17 +211,14 @@ function createMonthCalendar(date, fertileDays, ovulationDays, periodDays) {
     grid.appendChild(cell);
   });
 
-  // First day of month
   const first = new Date(date.getFullYear(), date.getMonth(), 1);
   const last = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-  // Empty cells
   for (let i = 0; i < first.getDay(); i++) {
     const empty = document.createElement("div");
     grid.appendChild(empty);
   }
 
-  // Days
   for (let d = 1; d <= last.getDate(); d++) {
     const day = new Date(date.getFullYear(), date.getMonth(), d);
     const cell = document.createElement("div");
@@ -293,24 +239,126 @@ function createMonthCalendar(date, fertileDays, ovulationDays, periodDays) {
 }
 
 /* ---------------------------
-   PERMANENT INSTALL BUTTON
+   INSTALL BUTTON
 ---------------------------- */
 
 let deferredPrompt;
 
-// Listen for the install prompt event
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
 });
 
-// Permanent install button logic
 document.getElementById("installAppPermanent").addEventListener("click", async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
-    const choice = await deferredPrompt.userChoice;
+    await deferredPrompt.userChoice;
     deferredPrompt = null;
   } else {
     alert("To install the app, use your browser menu and choose 'Add to Home Screen'.");
   }
 });
+
+/* ---------------------------
+   REMINDER SYSTEM
+---------------------------- */
+
+function setReminder(lastPeriodStr, cycleLength, daysBefore, nextPeriodStr, ovulationStr) {
+  const lastPeriod = new Date(lastPeriodStr + "T00:00:00");
+  if (isNaN(lastPeriod.getTime())) return;
+
+  const nextPeriod = new Date(lastPeriod);
+  nextPeriod.setDate(nextPeriod.getDate() + cycleLength);
+
+  const reminderDate = new Date(nextPeriod);
+  reminderDate.setDate(reminderDate.getDate() - daysBefore);
+
+  const y = reminderDate.getFullYear();
+  const m = String(reminderDate.getMonth() + 1).padStart(2, "0");
+  const d = String(reminderDate.getDate()).padStart(2, "0");
+  const reminderStr = `${y}-${m}-${d}`;
+
+  localStorage.setItem("oc_reminderDate", reminderStr);
+  localStorage.setItem("oc_nextPeriod", nextPeriodStr);
+  localStorage.setItem("oc_ovulation", ovulationStr);
+
+  if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({
+      type: "REMINDER_DATA",
+      reminderDate: reminderStr,
+      nextPeriod: nextPeriodStr,
+      ovulation: ovulationStr
+    });
+  }
+
+  alert("Your reminder has been set.");
+}
+
+document.getElementById("set-reminder-btn").addEventListener("click", () => {
+  const lastPeriodStr = document.getElementById("lastPeriod").value;
+  const cycleLength = parseInt(document.getElementById("cycleLength").value);
+
+  const daysBefore = Number(
+    document.querySelector("input[name='days-before']:checked").value
+  );
+
+  const nextPeriodStr = window.calculatedNextPeriod;
+  const ovulationStr = window.calculatedOvulation;
+
+  setReminder(lastPeriodStr, cycleLength, daysBefore, nextPeriodStr, ovulationStr);
+});
+
+/* --------------------------------------------------
+   TRIGGER 3-DAY GENTLE NOTIFICATIONS
+-------------------------------------------------- */
+
+function sendTipCheckToSW() {
+  const lastTipDate = localStorage.getItem("oc_lastTipDate") || null;
+
+  if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({
+      type: "TIP_DATA",
+      lastTipDate: lastTipDate
+    });
+  }
+}
+
+// When the service worker sends a tip, update localStorage
+navigator.serviceWorker.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "TIP_SENT") {
+    localStorage.setItem("oc_lastTipDate", event.data.date);
+  }
+});
+
+// Trigger check whenever the user is online
+window.addEventListener("online", sendTipCheckToSW);
+
+// Trigger check on page load
+window.addEventListener("load", sendTipCheckToSW);
+
+/* --------------------------------------------------
+   SHARE THE APP BUTTON
+-------------------------------------------------- */
+
+const shareBtn = document.getElementById("shareAppBtn");
+
+if (shareBtn) {
+  shareBtn.addEventListener("click", async () => {
+    const shareData = {
+      title: "Ovulation Calculator",
+      text: "I found this gentle ovulation calculator. It’s soft, simple, and really helpful. Try it 💕",
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.log("Share cancelled");
+      }
+    } else {
+      // Fallback for browsers that don't support sharing
+      alert("Sharing is not supported on this device.");
+    }
+  });
+}
