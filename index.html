@@ -93,6 +93,56 @@
     <div class="calendar-scroll" id="calendarContainer"></div>
   </section>
 
+<div id="reminder-box" class="reminder-box" style="display:none;">
+  <h3>Reminder Settings</h3>
+
+  <div class="days-options">
+    <label><input type="radio" name="days-before" value="1" checked> 1 day before</label>
+    <label><input type="radio" name="days-before" value="2"> 2 days before</label>
+    <label><input type="radio" name="days-before" value="3"> 3 days before</label>
+  </div>
+
+  <button id="set-reminder-btn">Set Reminder</button>
+
+  <p class="come-back-note">
+    Remember to come back next month and enter your new last period date to get your next reminder.
+  </p>
+</div>
+
+<!-- PREGNANCY PROBABILITY CHART -->
+<section class="form-section" id="probabilitySection">
+  <h2 class="section-title">Pregnancy Probability Chart</h2>
+
+  <div class="probability-chart">
+    <div class="prob-row">
+      <span>2 days before ovulation</span>
+      <span class="prob-tag high">High</span>
+    </div>
+
+    <div class="prob-row">
+      <span>1 day before ovulation</span>
+      <span class="prob-tag very-high">Very High</span>
+    </div>
+
+    <div class="prob-row">
+      <span>Ovulation day</span>
+      <span class="prob-tag peak">Peak</span>
+    </div>
+
+    <div class="prob-row">
+      <span>1 day after ovulation</span>
+      <span class="prob-tag high">High</span>
+    </div>
+
+    <div class="prob-row">
+      <span>2+ days after ovulation</span>
+      <span class="prob-tag low">Low</span>
+    </div>
+  </div>
+</section>
+
+ <button id="shareAppBtn" class="share-btn">Share This App 💙</button>
+
   <section class="info-section">
 
   <h2>How This Ovulation Calculator Works</h2>
