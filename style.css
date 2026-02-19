@@ -327,3 +327,113 @@ body.dark .footer a {
   border-left: 4px solid #ff69b4;
   font-size: 0.9rem;
 }
+
+.reminder-box {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fff7fb;
+  border: 1px solid #ffd6e8;
+  border-radius: 10px;
+}
+
+.reminder-box h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #c2185b;
+}
+
+.days-options label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #444;
+}
+
+#set-reminder-btn {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #e91e63;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+#set-reminder-btn:hover {
+  background: #d81b60;
+}
+
+.come-back-note {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #c2185b;
+  background: #fff0f6;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ffd6e8;
+}
+
+.share-btn {
+  background-color: #4da3ff; /* soft blue */
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 200px;
+  text-align: center;
+  display: inline-block;
+  transition: 0.2s ease;
+}
+
+.share-btn:hover {
+  background-color: #1e8bff;
+}
+
+/* Pregnancy Probability Chart */
+.probability-chart {
+  margin-top: 15px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.prob-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.prob-row:last-child {
+  border-bottom: none;
+}
+
+.prob-tag {
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Colors */
+.high {
+  background-color: #6ccf7f; /* soft green */
+}
+
+.very-high {
+  background-color: #ff9f43; /* soft orange */
+}
+
+.peak {
+  background-color: #b36bff; /* soft purple */
+}
+
+.low {
+  background-color: #bfbfbf; /* soft gray */
+}
